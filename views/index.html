@@ -1,0 +1,126 @@
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale= 1.0, maximum-scale= 1.0, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <title>walkietalkie.im</title>
+
+        <link href="lib/normalize.css" rel="stylesheet" type="text/css" />
+        <link href="css/main.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <header class="header">
+            <div class="status"></div>
+        </header>
+
+        <div class="feed"></div>
+
+        <form class="send" autocomplete="off">
+            <div class="say wrapper">
+                <label for="say">Say something…</label>
+                <input  id="say" type="text" />
+            </div>
+            <div class="photo wrapper">
+                <a href=""></a>
+            </div>
+        </form>
+
+
+        <script id="header-status-template" type="text/template">
+            <% if(connected) { %>
+                Tuned into <em><%- area %></em>
+            <% } else { %>
+                Tuning in…
+            <% } %>
+        </script>
+
+        <script id="text-message-template" type="text/template">
+            <p><%- text %></p>
+        </script>
+
+        <script id="status-message-template" type="text/template">
+            <p><%= text %></p>
+        </script>
+
+        <script id="photo-message-template" type="text/template">
+            <img src="<%= url %>" />
+        </script>
+
+        <script src="lib/jquery-1.7.2.js"></script>
+        <script src="lib/jquery.labelize.js"></script>
+        <script src="lib/underscore.js"></script>
+        <script src="lib/backbone.js"></script>
+
+        <script src="/socket.io/socket.io.js"></script>
+
+        <script src="js/wt.js"></script>
+
+        <script src="js/models/app.js"></script>
+        <script src="js/models/message.js"></script>
+
+        <script src="js/collections/messages.js"></script>
+
+        <script src="js/views/viewport.js"></script>
+        <script src="js/views/send.js"></script>
+        <script src="js/views/header.js"></script>
+        <script src="js/views/feed.js"></script>
+        <script src="js/views/message.js"></script>
+        <script src="js/views/textMessage.js"></script>
+        <script src="js/views/statusMessage.js"></script>
+
+        <script>
+            $(function() {
+                var socket = io.connect('daniel.local');
+
+                var model = new wt.models.App({
+                    socket: socket
+                });
+
+                var viewport = new wt.views.Viewport({
+                    model: model,
+                    pageTitle: document.title
+                });
+
+                var header = new wt.views.header({
+                    el: '.header',
+                    model: model
+                });
+
+                var feed = new wt.views.Feed({
+                    el: '.feed',
+                    model: model
+                });
+
+                var send = new wt.views.Send({
+                    el: '.send',
+                    socket: socket,
+                    feed: feed
+                });
+
+                model.watchPosition();
+
+                // Fake connect
+                // setTimeout(function() {
+                //     model.set({
+                //         connected: true,
+                //         area: 'Copenhagen'
+                //     });
+
+                //     model.get('messages').add([{
+                //         type: 'text',
+                //         text: 'Message 1'
+                //     }, {
+                //         type: 'status',
+                //         text: 'You are now tuned into <em>Copenhagen</em>'
+                //     }, {
+                //         type: 'text',
+                //         text: 'Some shit'
+                //     }]);
+                // }, 500);
+            });
+        </script>
+    </body>
+</html>

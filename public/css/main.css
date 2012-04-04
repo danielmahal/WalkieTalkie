@@ -1,0 +1,113 @@
+body {
+    font-family: "Helvetica";
+    padding: 40px 0;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #54bf1f url(images/logo.png) 10px -44px no-repeat;
+
+    color: #fff;
+    font-size: 14px;
+    line-height: 40px;
+    height: 40px;
+
+    z-index: 1;
+}
+
+    .header.connected {
+        background-position: 10px 6px;
+    }
+
+    .header .status {
+        padding-left: 45px;
+    }
+
+        .header .status em {
+            font-style: normal;
+            font-weight: bold;
+        }
+
+.send {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 5px;
+    background: #f1f1f1;
+}
+
+    .send .wrapper {
+        border-radius: 4px;
+        background: #fff;
+    }
+
+    .send .say {
+        position: relative;
+        border: 1px #d4d4d4 solid;
+        padding: 0 9px;
+    }
+
+        /*
+        .can-take-photo .send .say {
+            margin-right: 40px;
+        }
+        */
+
+        .send .say label,
+        .send .say input {
+            font-size: 16px;
+            padding: 0 9px;
+            line-height: 2em;
+            height: 2em;
+        }
+
+        .send .say label {
+            position: absolute;
+            pointer-events: none;
+            cursor: text;
+            top: 0;
+            left: 0;
+            color: #999;
+        }
+
+        .send .say input {
+            outline: 0 none;
+            margin: 0 -9px;
+
+            border: 0;
+            width: 100%;
+            background: transparent;
+        }
+
+.feed {
+    position: absolute;
+    bottom: 40px;
+    overflow: auto;
+    width: 100%;
+}
+
+    .feed .message {
+        background: #fff;
+        padding: 10px 15px;
+        font-size: 14px;
+        border-bottom: 1px #ddd solid;
+    }
+
+        .feed .message p {
+            margin: 0;
+        }
+
+        .feed .message.status {
+            background: #fffad5;
+            color: #7f7c67;
+            font-style: italic;
+            margin: -1px 0;
+        }
+
+            .feed .message.status em {
+                font-weight: bold;
+            }
